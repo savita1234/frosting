@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('shop_id');
             $table->string('branch_name')->nullable();
+              $table->string('address');
+            $table->string('city');
+            $table->string('country');
+            $table->string('pincode');
+            $table->string('land_mark');
             $table->timestamps();
     
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');

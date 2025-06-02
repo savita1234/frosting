@@ -5,13 +5,18 @@
     <h2>Add Shop Details</h2>
 
     {{-- Shop Form --}}
-    <form action="{{route('user.saveShopDetails')}}" method="POST">
+    <form action="{{route('user.saveShopDetails')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- Shop Name -->
         <div class="mb-3">
             <label class="form-label">Shop Name</label>
             <input type="text" name="shop_name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Shop Logo</label>
+            <input type="file" name="logo" class="form-control" required>
         </div>
 
         <!-- Shop Type -->
