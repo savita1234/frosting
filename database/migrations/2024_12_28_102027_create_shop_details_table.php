@@ -18,11 +18,7 @@ return new class extends Migration
             $table->string('shop_name');
             $table->string('shop_type')->nullable();
             $table->integer('no_of_branches');
-            $table->string('address');
-            $table->string('city');
-            $table->string('country');
-            $table->string('pincode');
-            $table->string('land_mark');
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

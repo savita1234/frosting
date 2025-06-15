@@ -14,6 +14,11 @@
             <input type="text" name="shop_name" class="form-control" required>
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Shop Logo</label>
+            <input type="file" name="logo" class="form-control" required>
+        </div>
+
         <!-- Shop Type -->
         <div class="mb-3">
             <label class="form-label">Shop Type</label>
