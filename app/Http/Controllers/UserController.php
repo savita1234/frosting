@@ -73,7 +73,7 @@ class UserController extends Controller
             'password' => 'required'
         ]);
         if(Auth::attempt($request->only('email','password'))){
-            return redirect()->route('dashboard')->with('success', 'successfully logged in.');
+            return redirect()->route('user.dashboard')->with('success', 'successfully logged in.');
         }else{
             return back()->with('success', 'invalid credentials');
         }

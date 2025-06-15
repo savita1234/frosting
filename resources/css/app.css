@@ -34,3 +34,16 @@
         margin-left: 0;
     }
 }
+.section-title {
+    border-bottom: 2px solid #198754;
+    display: inline-block;
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+  }
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #198754;
+  }

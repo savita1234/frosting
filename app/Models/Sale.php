@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    protected $table ='sales';
+    protected $table = 'sales';
     protected $fillable = [
         'branch_id',
         'date',
@@ -17,6 +17,12 @@ class Sale extends Model
         'essentials_amount',
         'material_amount'
     ];
-
-    
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'branch_id', 'id');
+    }
+    public function dailyExpenses()
+    {
+        return $this->hasMany(DailyExpense::class);
+    }
 }

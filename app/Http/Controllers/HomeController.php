@@ -6,14 +6,22 @@ use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Shop;
+use App\Models\Sale;
+use App\Models\Branch;
 
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.dashboard');
-        dd('heelo');
+        $branches = Shop::where('user_id', currentUser()->id)->get();
+        $selectedBranchId = $request->get('branch_id') ?? $branches->first()->id;
+        $query = Sale::with('shop')->where('branch_id', $selectedBranchId);
+        if ($request->filled('date')) {
+            $query->whereDate('date', $request->date);
+        }
+        $salesData = $query->orderBy('date', 'desc')->paginate(10);
+        return view('dashboard.dashboard', compact('salesData', 'branches', 'selectedBranchId'));
     }
 
     public function shopDetails()
@@ -25,7 +33,7 @@ class HomeController extends Controller
         // dd(currentUser()->id);
         // dd($request);
         $branchcount = 1;
-        $branchString = substr($request['shop_name'],0,5);
+        $branchString = substr($request['shop_name'],0,8);
 
         foreach($request['branches'] as $branch){
             $storeDetails = Shop::create([
@@ -44,5 +52,15 @@ class HomeController extends Controller
             $branchcount++;
         }
         return redirect()->route('dashboard');
+    }
+    public function profile()
+    {
+        $user = currentUser();
+        $details = Shop::where('user_id',currentUser()->id)->get();
+        return view('user.profile',compact('user','details'));
+    }
+    public function branches()
+    {
+        return view('dashboard.add-branches');
     }
 }

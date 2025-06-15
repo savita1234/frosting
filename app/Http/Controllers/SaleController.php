@@ -6,12 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\dailyOrders;
 use App\Http\Requests\dailyOrdersRequest;
+use App\Models\Shop;
+use Illuminate\Support\Facades\Storage;
+use App\Imports\SalesImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Readers\LaravelExcelReader;
 
 class SaleController extends Controller
 {
     public function index()
     {
-        return view('dashboard.daily-sales');
+        $branches = Shop::where('user_id',currentUser()->id)->get();
+        return view('dashboard.daily-sales',compact('branches'));
     }
     public function dailySale(Request $request)
     {
@@ -47,6 +53,39 @@ class SaleController extends Controller
     }
     public function saveSales(Request $request)
     {
-        dd($request);
+        $neccessary_amount = collect($request->expenses)->sum('amount');
+        $saveData = Sale::create([
+            'branch_id' => $request['branch_id'],
+            'date' => $request['date'],
+            'total_cash' => $request['cash_amount'],
+            'total_gpay' => $request['online_amount'],
+            'collection' => $request['collection'],
+            'essentials_amount' => $neccessary_amount,
+            'material_amount' => $request['material_amount']
+        ]);
+        $saveData->dailyExpenses()->createMany($request->expenses);
+        return redirect()->route('user.dashboard');
+    }
+    public function exportToExcel()
+    {
+        return view('dashboard.export_to_excel');
+    }
+    public function downloadSampleExcel()
+    {
+        $filePath = 'export_sale.xlsx';
+
+        if (!Storage::disk('public')->exists($filePath)) {
+            abort(404, 'File not found.');
+        }
+        
+        return Storage::disk('public')->download($filePath, 'sample.xlsx');
+        return redirect()->back();
+    }
+    public function saveExportToExcel(Request $request)
+    {
+        $file = $request->file('export_file'); 
+        Excel::import(new SalesImport, $file);
+
+        return back()->with('success', 'Excel file imported successfully');
     }
 }

@@ -17,14 +17,20 @@ Route::get('login',[AuthController::class, 'login'])->name('login');
 
 Route::prefix('user')->group(function (){
 Route::middleware('auth:user')->group(function(){
-    Route::get('dashboard',[HomeController::class, 'index'])->name('dashboard');
-    Route::get('orders',[HomeController::class, 'index'])->name('orders');
-    Route::get('products',[HomeController::class, 'index'])->name('products');
-    Route::get('daily_sales',[SaleController::class, 'index'])->name('daily-sales');
+    Route::get('dashboard',[HomeController::class, 'index'])->name('user.dashboard');
+    Route::get('orders',[HomeController::class, 'index'])->name('user.orders');
+    Route::get('products',[HomeController::class, 'index'])->name('user.products');
+    Route::get('daily-sales',[SaleController::class, 'index'])->name('user.daily.sales');
     Route::post('logout',[UserController::class, 'logout'])->name('user.logout');
-    Route::get('shop_details',[HomeController::class,'shopDetails'])->name('user.shopDetails');
-    Route::post('saveShopDetails',[HomeController::class, 'saveShopData'])->name('user.saveShopDetails');
-    Route::post('saveDailySale',[SaleController::class, 'saveSales'])->name('user.saveDailySale');
+    Route::get('shop-details',[HomeController::class,'shopDetails'])->name('user.shop.details');
+    Route::post('save-shop-details',[HomeController::class, 'saveShopData'])->name('user.save.shop.details');
+    Route::post('save-daily-sale',[SaleController::class, 'saveSales'])->name('user.save.daily.sale');
+    Route::get('profile',[HomeController::class, 'profile'])->name('user.profile');
+    Route::get('add-branches',[HomeController::class,'branches'])->name('addBranches');
+    Route::get('export-excel',[SaleController::class, 'exportToExcel'])->name('user.export.excel');
+    Route::get('download-sample-excel',[SaleController::class, 'downloadSampleExcel'])->name('user.download.sample.excel');
+    Route::post('save-export-data',[SaleController::class, 'saveExportToExcel'])->name('user.save.export.data');
+   
 });
 });
 

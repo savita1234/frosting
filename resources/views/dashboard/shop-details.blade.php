@@ -5,7 +5,7 @@
     <h2>Add Shop Details</h2>
 
     {{-- Shop Form --}}
-    <form action="{{route('user.saveShopDetails')}}" method="POST">
+    <form action="{{route('user.save.shop.details')}}" method="POST">
         @csrf
 
         <!-- Shop Name -->

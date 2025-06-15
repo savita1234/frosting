@@ -19,7 +19,7 @@ return new class extends Migration
             $table->float('total_cash',10,2);
             $table->float('total_gpay',10,2);
             $table->float('collection',10,2);
-            $table->float('essentials_amount',10,2);
+            $table->float('essentials_amount',10,2)->nullable();
             $table->float('material_amount',10,2)->nullable();
             
             $table->timestamps();

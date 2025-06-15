@@ -35,4 +35,8 @@ class Shop extends Model
     {
         return $this->belongsTo(User::class);
     }
+     public function sale(): HasMany
+    {
+        return $this->hasMany(Sale::class, 'branch_id', 'id');
+    }
 }
