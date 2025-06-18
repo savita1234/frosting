@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('user.daily.sales') }}" class="nav-link text-white">
-                    <i class="bi bi-receipt"></i> Daily Sales
+                    <i class="bi bi-receipt"></i> Daily sadf
                 </a>
             </li>
             <li>
