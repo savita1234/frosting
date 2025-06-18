@@ -43,6 +43,10 @@
             <label class="form-label">Material Amount</label>
             <input type="number" name="material_amount" class="form-control" required>
         </div>
+         <div class="mb-3">
+            <label class="form-label">Material Amount1</label>
+            <input type="number" name="material_amount1" class="form-control" required>
+        </div>
         <div class="mb-3">
             <label class="form-label">Necessary Expenses</label>
             <div id="expenses-wrapper">
