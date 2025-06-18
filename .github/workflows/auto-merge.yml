@@ -2,8 +2,8 @@ name: Auto merge into main
 
 on:
   push:
-    branches-ignore:
-      - main
+    branches:
+      - '**'
 
 jobs:
   auto-merge:
